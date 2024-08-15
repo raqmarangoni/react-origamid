@@ -12,74 +12,49 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <p>Total: <span id="total"></span></p>
+      <p>Preço: R$ <span id="preco"></span></p>
+      <button id="button">Comprar</button>
+    </div>
+    <script type="application/javascript">
+      const total = document.getElementById("total");
+      const preco = document.getElementById("preco");
+      const button = document.getElementById("button");
+
+      let contador = 1;
+
+      function atualizarValores(contador) {
+        total.innerText = contador;
+        preco.innerText = contador * 250;
+      }
+
+      atualizarValores(contador);
+
+      function handleClick() {
+        contador = contador + 1;
+        atualizarValores(contador);
+      }
+      button.addEventListener("click", handleClick);
+    </script>
+
+    <div id="app-react"></div>
     <script type="text/babel">
-      
-      const Compras = () => {
-        const [count, setCount] = React.useState(0);
-        return (
-          <div>
-            <button onClick={() => setCount(count + 1)}>
-              Comprar: {count}{" "}
-            </button>
-            <p>Total: {count}</p>
-            <p>Preço: {count * 250}</p>
-          </div>
-        );
-      };
-
-      const Produtos = () => {
-        const produto1 = "Camisa";
-        const produto2 = "Calça";
-
-        function handleClick(event) {
-          console.log("Comprou " + event.target.innerText);
-        }
+      const Comprar = () => {
+        const [contador, setContador] = React.useState(1);
 
         return (
           <div>
-            <button onClick={handleClick}>
-              {produto1} - R$ {Math.random()}
-            </button>
-            <button onClick={handleClick}>
-              {produto2} - R${Math.random()}
-            </button>
+            <p>Total: {contador}</p>
+            <p>Preço: R$ {contador * 250}</p>
+            <button onClick={() => setContador(contador + 1)}>Comprar</button>
           </div>
         );
       };
 
-      const Button = () => {
-        return <button>Comprar</button>;
-      };
-
-      const MainNav = () => {
-        return (
-          <nav>
-            <ul>
-              <li>Item 1</li>
-              <li>
-                <a href="#">Link</a>
-              </li>
-            </ul>
-          </nav>
-        );
-      };
-
-      const App = () => {
-        return (
-          <div id="container">
-            Meu App
-            <Button />
-            <Produtos />
-            <Compras />
-            <MainNav />
-          </div>
-        );
-      };
-
-      const container = document.getElementById("root");
-      const root = ReactDOM.createRoot(container);
-      root.render(<App />);
+      ReactDOM.createRoot(document.getElementById("app-react")).render(
+        <Comprar />
+      );
     </script>
   </body>
 </html>
